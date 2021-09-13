@@ -46,10 +46,10 @@ steps:
   inputs:
     package: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
     outputPath: '$(Build.ArtifactStagingDirectory)\Calculator.appinstaller'
-    method: 'create'
-    fileVersion: '1.0.0.0'
-    uri: 'https://myuwpapp-demo.azurewebsites.net/Calculator.appinstaller'
-    mainItemUri: 'https://myuwpapp-demo.azurewebsites.net/Calculator.msix'
+    method: 'update'
+    existingFile: '$(Build.ArtifactStagingDirectory)\Calculator.appinstaller'
+    versionUpdateMethod: 'build'
+   
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
