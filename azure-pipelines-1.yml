@@ -41,7 +41,7 @@ steps:
   displayName: 'Download Secure PFX File'
   
 - script: '"C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\signtool"
-    sign /fd SHA256 /f $(Agent.TempDirectory)/selfCert.pfx /p secret $(
+    sign /fd SHA256 /f $(Agent.TempDirectory)/selfCert.pfx /p password $(
     Build.ArtifactStagingDirectory)/CalculatorDesktopApp.msix'
   displayName: 'Sign MSIX Package'
   
