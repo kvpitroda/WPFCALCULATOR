@@ -31,7 +31,7 @@ steps:
     msbuildArchitecture: 'x86'
 - task: MsixSigning@1
   inputs:
-    package: '$(Build.ArtifactStagingDirectory)\*.msix*'
+    package: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
     certificate: 'selfcert.pfx'
     passwordVariable: '$(password)'
 - task: AppInstallerFile@1
