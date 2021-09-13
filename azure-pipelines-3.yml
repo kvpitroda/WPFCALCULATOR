@@ -18,7 +18,7 @@ steps:
     restoreSolution: '$(solution)'
 - task: MsixPackaging@1
   inputs:
-    outputPath: '$(BuildArtifactStagingDirectory)\Calculator.msix'
+    outputPath: '$(system.defaultworkingdirectory)\Calculator.msix'
     solution: '**/*.sln'
     clean: false
     generateBundle: false
@@ -32,16 +32,6 @@ steps:
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-
-    
-          
-            
-    
-
-          
-    
-    
-  
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
     Contents: '**\bin\$(BuildConfiguration)\**'
