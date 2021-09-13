@@ -19,7 +19,7 @@ steps:
   
 - task: MSBuild@1
   inputs:
-    solution: Calculator/Calculator.sln
+    solution: Calculator.sln
     platform: $(buildPlatform)
     configuration: $(buildConfiguration)
     msbuildArguments: '/p:OutputPath=NonPackagedApp
