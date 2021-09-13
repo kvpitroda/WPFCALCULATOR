@@ -18,7 +18,7 @@ steps:
     restoreSolution: '$(solution)'
 - task: MsixPackaging@1
   inputs:
-    outputPath: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
+    outputPath: '$(BuildArtifactStagingDirectory)\Calculator.msix'
     solution: '**/*.sln'
     clean: false
     generateBundle: false
@@ -31,8 +31,8 @@ steps:
     msbuildArchitecture: 'x86'
 - task: MsixSigning@1
   inputs:
-    package: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
-    certificate: 'selfcert.pfx'
+    package: '$(Build.ArtifactStagingDirectory)\**\*.msix*'
+    certificate: 'selfCert.pfx'
     passwordVariable: '$(password)'
 - task: AppInstallerFile@1
   inputs:
