@@ -31,7 +31,7 @@ steps:
     buildConfiguration: 'debug'
     buildPlatform: 'x86'
     updateAppVersion: true
-    manifestFile: 'Calculator.Package/Package.appmanifest'
+    manifestFile: 'Calculator.Package/Package.appxmanifest'
     appVersion: '1.0.0.0'
     appPackageDistributionMode: 'SideloadOnly'
     msbuildLocationMethod: 'version'
