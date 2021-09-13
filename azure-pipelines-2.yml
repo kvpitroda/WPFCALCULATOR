@@ -38,7 +38,7 @@ steps:
 
 - task: MsixSigning@1
   inputs:
-    package: '$(Build.ArtifactStagingDirectory)\**\*.msix*'
+    package: '$(Build.ArtifactStagingDirectory)\*.msix*'
     certificate: 'selfcert.pfx'
     passwordVariable: '$(password)'
 
