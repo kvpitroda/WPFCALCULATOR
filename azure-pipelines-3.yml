@@ -3,26 +3,21 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-
 pool:
   vmImage: 'windows-latest'
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   password: 'password'
-
 steps:
 - task: NuGetToolInstaller@1
-
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
 - task: MsixPackaging@1
   inputs:
-    outputPath: '$(BuildArtifactStagingDirectory)\Calculator.msix'
+    outputPath: '$(system.defaultworkingdirectory)\Calculator.msix'
     solution: '**/*.sln'
     clean: false
     generateBundle: false
@@ -33,30 +28,18 @@ steps:
     msbuildLocationMethod: 'version'
     msbuildVersion: 'latest'
     msbuildArchitecture: 'x86'
-
 - task: MsixSigning@1
   inputs:
-    package: '$(Build.ArtifactStagingDirectory)\**\*.msix*'
-    certificate: 'selfcert.pfx'
+    package: '$(system.defaultworkingdirectory)\**\*.msix*'
+    certificate: 'Calculator.Package_TemporaryKey.pfx'
     passwordVariable: '$(password)'
-
-- task: AppInstallerFile@1
-  inputs:
-    package: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
-    outputPath: '$(Build.ArtifactStagingDirectory)\Calculator.appinstaller'
-    method: 'create'
-    fileVersion: '1.0.0.0'
-    uri: 'https://trialstorageaccount12345.file.core.windows.net/appinstallers/Calculator.appinstaller'
-    mainItemUri: 'https://trialstorageaccount12345.file.core.windows.net/appinstallers/Calculator.msix'
-
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**\bin\$(BuildConfiguration)\**'
+    Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)'
-
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: OutputFiles'
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
