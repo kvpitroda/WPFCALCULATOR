@@ -16,7 +16,16 @@ steps:
      $manifest.Package.Identity.Version = "$(major).$(minor).$(build).$(revision)"    
      $manifest.save("Calculator.Package/Package.appxmanifest")
   displayName: 'Version Package Manifest'
-  
+
+- task: NuGetToolInstaller@1
+  inputs:
+      versionSpec: 
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
 - task: MSBuild@1
   inputs:
     solution: Calculator.sln
