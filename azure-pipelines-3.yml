@@ -18,7 +18,7 @@ steps:
     restoreSolution: '$(solution)'
 - task: MsixPackaging@1
   inputs:
-    outputPath: '$(BuildArtifactStagingDirectory)\Calculator.msix'
+    outputPath: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
     solution: '**/*.sln'
     clean: false
     generateBundle: false
