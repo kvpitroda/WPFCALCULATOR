@@ -13,6 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  password: 'password'
 
 steps:
 - task: NuGetToolInstaller@1
