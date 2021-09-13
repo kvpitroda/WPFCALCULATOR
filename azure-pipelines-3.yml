@@ -29,19 +29,6 @@ steps:
     msbuildLocationMethod: 'version'
     msbuildVersion: 'latest'
     msbuildArchitecture: 'x86'
-- task: MsixSigning@1
-  inputs:
-    package: '$(Build.ArtifactStagingDirectory)\**\*.msix*'
-    certificate: 'selfCert.pfx'
-    passwordVariable: '$(password)'
-- task: AppInstallerFile@1
-  inputs:
-    package: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
-    outputPath: '$(Build.ArtifactStagingDirectory)\Calculator.appinstaller'
-    method: 'create'
-    fileVersion: '1.0.0.0'
-    uri: 'https://myuwpapp-demo.azurewebsites.net/Calculator.appinstaller'
-    mainItemUri: 'https://myuwpapp-demo.azurewebsites.net/Calculator.msix'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
