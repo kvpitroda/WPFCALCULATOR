@@ -56,7 +56,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <EntryPointProjectUniqueName>..\Calculator\Calculator.csproj</EntryPointProjectUniqueName>
-    <PackageCertificateThumbprint>279056C22A27A033F87A7995BC23E3E82150CEDF</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>4FAE48ABC1DA9A9E5F84B5041BCB0E54B208671E</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
