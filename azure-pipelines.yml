@@ -21,19 +21,36 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
+steps:
+- task: MSIX.msix-ci-automation-task-dev.msix-packaging.MsixPackaging@1
+  displayName: 'MSIX build and package'
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    outputPath: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
+    solution: Calculator.sln
+    buildPlatform: x86
+    updateAppVersion: true
+    manifestFile: Calculator.Package/Package.appxmanifest
+    appVersion: 1.0.0.0
+    appPackageDistributionMode: SideloadOnly
+    msbuildArchitecture: x86
 
-- task: CopyFiles@2
+- task: DownloadSecureFile@1
+  name: signingCert
+  displayName: 'Download CA certificate'
   inputs:
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-- task: PublishBuildArtifacts@1
+    secureFile: 'selfcert.pfx'
+- task: MsixSigning@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'Calculator'
-    publishLocation: 'Container'
+    package: '$(Build.ArtifactStagingDirectory)\**\*.msix*'
+    certificate: 'selfcert.pfx'
+    passwordVariable: 'password'
+steps:
+- task: MSIX.msix-ci-automation-task-dev.app-installer-file.AppInstallerFile@1
+  displayName: 'Create App Installer file'
+  inputs:
+    package: '$(Build.ArtifactStagingDirectory)\Calculator.msix'
+    outputPath: '$(Build.ArtifactStagingDirectory)\Calculator.appinstaller'
+    uri: 'https://myuwpapp-demo.azurewebsites.net/Calculator.appinstaller'
+    mainItemUri: 'https://myuwpapp-demo.azurewebsites.net/MyApp.msix'
+    showPromptWhenUpdating: true
+    updateBlocksActivation: true
