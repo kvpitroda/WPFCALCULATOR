@@ -29,7 +29,11 @@ steps:
     msbuildLocationMethod: 'version'
     msbuildVersion: 'latest'
     msbuildArchitecture: 'x86'
-
+- task: MsixSigning@1
+  inputs:
+    package: '$(system.defaultworkingdirectory)\**\*.msix*'
+    certificate: 'selfcert.pfx'
+    passwordVariable: '$(password)'
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
