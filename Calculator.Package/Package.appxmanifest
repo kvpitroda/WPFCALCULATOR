@@ -8,8 +8,8 @@
 
   <Identity
     Name="568e0534-0906-49a6-9b08-c1c9b02019f9"
-    Publisher="CN=Kundan"
-    Version="1.0.0.0" />
+    Publisher="CN=U1212367"
+    Version="1.0.1.0" />
 
   <Properties>
     <DisplayName>Calculator.Package</DisplayName>
