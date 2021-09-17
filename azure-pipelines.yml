@@ -13,6 +13,10 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'x86'
   buildConfiguration: 'Release'
+  major: 1
+  minor: 0
+  build: 0
+  revision: $[counter('rev', 0)]
 
 steps:
 - task: NuGetToolInstaller@1
@@ -21,6 +25,17 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+- powershell: |
+   [Reflection.Assembly]::LoadWithPartialName("System.Xml.Linq")
+   $path = ""$(System.DefaultWorkingDirectory)/Calculator.Package/Package.appxmanifest""
+   $doc = [System.Xml.Linq.XDocument]::Load($path)
+   $xName =
+     [System.Xml.Linq.XName]
+       "{https://schemas.microsoft.com/appx/manifest/foundation/windows10}Identity"
+   $doc.Root.Element($xName).Attribute("Version").Value =
+     "$(major).$(minor).$(build).$(revision)";
+   $doc.Save($path)
+  displayName: 'Version Package Manifest'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -31,3 +46,13 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: MSBuild@1
+  inputs:
+    solution: '**/Calculator.Package.wapproj'
+    platform: $(buildPlatform)
+    configuration: $(buildConfiguration)
+    msbuildArguments: '/p:OutputPath=NonPackagedApp
+     /p:UapAppxPackageBuildMode=SideLoadOnly  /p:AppxBundle=Always  /p:AppxPackageSigningEnabled=false'
+  displayName: 'Package the App'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
