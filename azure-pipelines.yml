@@ -17,6 +17,7 @@ variables:
   minor: 0
   build: 0
   revision: $[counter('rev', 0)]
+  certPassword: 'password'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -50,6 +51,16 @@ steps:
     configuration: $(buildConfiguration)
     msbuildArguments: '/p:OutputPath=NonPackagedApp
      /p:UapAppxPackageBuildMode=SideLoadOnly  /p:AppxBundle=Always  /p:AppxPackageSigningEnabled=false'
-  displayName: 'Package the App'
+
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'SelfSigned.pfx'
+  displayName: 'Download Secure PFX File'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
