@@ -50,7 +50,7 @@ steps:
     platform: $(buildPlatform)
     configuration: $(buildConfiguration)
     msbuildArguments: '/p:OutputPath=NonPackagedApp
-     /p:UapAppxPackageBuildMode=SideLoadOnly  /p:AppxBundle=Always  /p:AppxPackageSigningEnabled=false'
+     /p:UapAppxPackageBuildMode=SideLoadOnly  /p:AppxBundle=Always  /p:AppxPackageSigningEnabled=true'
 
 - task: DownloadSecureFile@1
   inputs:
