@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:Calculator.Commands"
     xmlns:local="clr-namespace:Calculator.ViewModels"
-    Title="WPF Calculator"
+    Title="My Calculator"
     Height="340"
     Width="500" 
     ResizeMode="CanMinimize" >
