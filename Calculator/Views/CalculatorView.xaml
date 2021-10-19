@@ -9,7 +9,7 @@
     ResizeMode="CanMinimize" >
  
     <DockPanel Name="MyPanel">
-        <Grid Name="MyGrid" Background="Black"  ShowGridLines="False" Height="287" Width="475">
+        <Grid Name="MyGrid" Background="White"  ShowGridLines="False" Height="287" Width="475">
             <Grid.Resources>
                 <Storyboard x:Key="playStoryboard">
                     <DoubleAnimation From="30" To="20" Duration="0:0:0.25" RepeatBehavior="1x" AutoReverse="True" Storyboard.TargetName="TB" Storyboard.TargetProperty="(Rectangle.Height)"/>
